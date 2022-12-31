@@ -2,48 +2,69 @@ import { Box, Button, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import { useAlert } from '../Context/AlertContext'
 import { useTheme } from '../Context/ThemeContext'
-import { auth } from '../firebaseConfig'
+import { auth, db } from '../firebaseConfig'
 import errorMapping from '../Utils/errorMapping'
 
 function SignupForm({handleClose}) {
         const [email, setEmail]= useState('')
         const [password, setPassword]= useState('')
         const [confirmPassword, setConfirmPassword]= useState('')
+        const [username, setUsername] =useState('')
         const {setAlert} = useAlert();
         const {theme} = useTheme();
 
-const handleSubmit=()=>{
-    if(!email || !password || !confirmPassword){
-        setAlert({
-            open: true,
-            type: 'warning',
-            message: 'Fill all Details.'
-        });
-    }
-    if(password!==confirmPassword){
-        setAlert({
-            open: true,
-            type: 'warning',
-            message: 'Password MissMatch.'
-        });
-    }
+        const checkUsernameAvailability = async()=>{
+            const ref = db.collection('usernames');
+            const response = await ref.doc(username).get();
+            console.log(response.exists);
+            return !response.exists;
+        }
 
-    auth.createUserWithEmailAndPassword(email, password)
-    .then((respose)=>{ 
-        setAlert({
-            open: true,
-            type: 'success',
-            message: 'SignUp Succesfull'
+        const handleSubmit = async()=>{
+            if(!email || !password || !confirmPassword || !username){
+                setAlert({
+                    open: true,
+                    type: 'warning',
+                    message: 'fill all details'
+                });
+                return;
+            }
+            if(password!==confirmPassword){
+                setAlert({
+                    open: true,
+                    type: 'warning',
+                    message: 'Password Mismatch'
+                });
+                return
+            }
+
+    if(await checkUsernameAvailability()){
+        auth.createUserWithEmailAndPassword(email, password).then(async(response) => {
+            const ref = await db.collection('usernames').doc(username).set({
+               uid:  response.user.uid
+            });
+            setAlert({
+                open: true,
+                type: 'success',
+                message: 'account created!'
+            });
+            handleClose();
+        }).catch((err) => {
+            console.log("sign up failed", err);
+            setAlert({
+                open: true,
+                type: 'error',
+                message: errorMapping[err.code] || "Some error occured"
+            });
         });
-        handleClose();
-    }).catch((err)=>{
-        console.log("error", err);
+    }
+    else{
         setAlert({
             open: true,
             type: 'warning',
-            message: errorMapping[err.code]
+            message: 'username taken'
         });
-    })
+    }
     
 }
 
@@ -61,6 +82,19 @@ return (
         } 
     }}
     onChange={(e)=>setEmail(e.target.value)}></TextField>
+
+   <TextField type='text' label='Enter UserName'
+    InputLabelProps={{
+        style: {
+            color: theme.title
+        }
+    }}
+    InputProps={{
+        style: {
+            color: theme.title
+        } 
+    }}
+    onChange={(e)=>setUsername(e.target.value)}></TextField>
 
     <TextField type='password' label='Enter Password'
     InputLabelProps={{
