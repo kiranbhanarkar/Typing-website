@@ -108,7 +108,7 @@ function AccountIcon() {
   return (
     <div>
     <PersonIcon onClick={handleOpen}/>
-    {(user)&& <ExitToAppIcon onClick={logout}/>}
+    {(user) && <ExitToAppIcon onClick={logout}/>}
         <Modal open={open} onClose={handleClose} style={{display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

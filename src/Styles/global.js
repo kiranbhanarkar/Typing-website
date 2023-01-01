@@ -20,6 +20,7 @@ body::-webkit-scrollbar{
     display:none;
 }
 
+
 .canvas{
     display: grid;
     min-height: 100vh;
@@ -150,16 +151,17 @@ a{
     font-size:1.35rem;
     padding:0.5rem;
 }
-.time-modes{
+.time-modes, .word-modes {
     display:flex;
 }
-.time{
+.time, .noOfword {
     margin-right:5px;
 }
-.time:hover{
+.time:hover, .noOfword:hover, .mode{
     color:${({theme})=>theme.typeBoxText};
     cursor: pointer;
 }
+
 
 .header{
     display:flex;
@@ -233,5 +235,30 @@ a{
     text-align: center;
     font-size: 3rem;
 }
+
+.logo{
+    display: flex;
+    gap: 10px;
+}
+
+.compare-btn{
+
+    cursor: pointer;
+    color: ${({theme})=>theme.background};
+    background: ${({theme})=>theme.title};
+    padding: 0.3rem;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-left:5px;
+}
+
+.graphs{
+    gap: 10px;
+    width: 1000px;
+    margin: 20px auto;
+}
+// .graph1{
+//     width:50%;
+// }
 
 `;

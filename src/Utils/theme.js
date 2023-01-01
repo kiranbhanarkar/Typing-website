@@ -19,9 +19,25 @@ const superUserTheme = {
     typeBoxText: '#526777'
 }
 
+const maroon ={
+    label: 'maroon',
+    background: '#AC766A',
+    title: '#B02204',
+    typeBoxText: '#3B201A'
+}
+
+const purple ={
+    label: 'purple',
+    background: '#EDCCF4',
+    title: '#74008D',
+    typeBoxText: '#825C8A'
+}
+
 export const themeOptions = [
     {value: darkTheme, label: 'Blue theme'},
     {value: greenTheme, label: 'Green theme'},
-    {value: superUserTheme, label: 'Super User'}
+    {value: superUserTheme, label: 'Super User'},
+    {value: maroon, label: 'Maroon theme'},
+    {value: purple, label: 'peacock theme'}
 ];
 

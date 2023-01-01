@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { db,auth } from '../firebaseConfig';
 import Graph from '../Components/Graph';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const ComparePage = () => {
     const {username} = useParams();
@@ -15,6 +16,8 @@ const ComparePage = () => {
         return response.data().uid;
     }
 
+    const [user] = useAuthState(auth);
+    
     const getData = async()=>{
         const compareUserUID = await getUID();
         const {uid} = auth.currentUser;
@@ -52,11 +55,13 @@ const ComparePage = () => {
         getData();
     },[]);
   return (
-    <div>
-        <div className="graph">
+    <div className='graphs'>
+        <div className="graph1">
+             Current User:  {user.email}
             <Graph graphData={loggedinUserGraphData} type='date'/>
-        </div>
-        <div className="graph">
+        </div><br></br>
+        <div className="graph1">
+           Compared With:  {username}
             <Graph graphData={compareUserGraphData} type='date'/>
         </div>
         

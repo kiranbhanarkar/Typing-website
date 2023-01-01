@@ -59,7 +59,9 @@ const UserPage = () => {
         <div className="graph">
             <Graph graphData={graphData} type='date'/>
         </div>
+        <div className="table1">
         <ResultTable data={data}/>
+        </div>
     </div>
   )
 }

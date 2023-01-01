@@ -12,7 +12,13 @@ const UserInfo = ({totalTestTaken}) => {
     <div className="user-profile">
         <div className="user">
             <div className="picture">
+              
+             
+               
                 <AccountCircleIcon style={{display:'block', transform:'scale(6)', margin:'auto', marginTop: '3.5rem'}}/>
+                <img src={user.photoURL} alt='' style={{display:'block', transform:'scale(1.4)', margin:'auto', marginTop: '-3.6rem',
+               borderRadius: '50px'}}/>
+               
             </div>
             <div className="info">
                 <div className="email">
