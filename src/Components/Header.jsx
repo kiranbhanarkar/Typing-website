@@ -7,13 +7,14 @@ function Header() {
     <div className="header">
       
         <div className="logo">
-            <span>
+            {/* <span>
             <img src='https://typingtestnow.com/images/social-share-thumb.png' alt='h'
             style={{width:'50px', height:'50px'}} />
-            </span>
+            </span> */}
             <div>
               <CompareButton/>
             </div>
+            <span style={{marginLeft: '14rem', fontSize:'2rem', fontWeight:'bold'}}>Typer - Typing Website </span>
         </div>
         <div className="user-icon">
             <AccountIcon />
